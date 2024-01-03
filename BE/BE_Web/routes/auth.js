@@ -12,6 +12,4 @@ router.put('/:id',AuthController.updateUserInfo)
 router.delete('/:id',AuthController.deleteUser)
 router.get('/refresh',AuthController.refreshToken)
 
-
-
 module.exports = router;

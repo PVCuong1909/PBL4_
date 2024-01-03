@@ -22,7 +22,3 @@ export interface IJob {
     Image: string
     Deadline: string
 }
-export interface IPronvince {
-    name: string
-    code: number
-}

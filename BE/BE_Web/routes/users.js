@@ -61,7 +61,7 @@ router.post('/', async (req, res) => {
 });
 
 // Cập nhật thông tin người dùng
-router.put('/me',[AuthMiddleware.authorize], async (req, res) => {
+router.put('/me', async (req, res) => {
 	const updatedUser = req.body;
 	try {
 		const user_id = TokenService.getInfoFromToken(req).id;

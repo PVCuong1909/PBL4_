@@ -1,26 +1,16 @@
 <script setup lang="ts">
-import { useAuthStore } from "../../stores/auth"
 import { useRouter } from "vue-router"
 import { ref } from "vue"
 import { ILogin, } from "../../types/user"
-// import { initAuthStore } from "../../stores"
 import { loginApi } from "../../services/user.service"
 import { initAuthStore } from '@/stores'
-
-
+import { ElNotification } from "element-plus";
 
 const user = ref<ILogin>({
     email: "",
     password: ""
 })
-
-
-
-
-const auth = useAuthStore()
 const router = useRouter()
-
-
 const submit = async () => {
     try {
         await loginApi({ email: user.value.email, password: user.value.password }).then((res) => {
@@ -31,7 +21,17 @@ const submit = async () => {
         })
         await initAuthStore()
         router.push("/mainjob")
+        ElNotification({
+        title: "Thành công",
+        message: "Đăng nhập thành công!",
+        type: "success",
+        });
     } catch (error) {
+        ElNotification({
+        title: "Thất bại",
+        message: "Đăng kí thất bại, vui lòng kiểm tra lại!",
+        type: "error",
+        });
         console.log(error)
     }
 };

@@ -1,20 +1,18 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from "vue"
+import { ref} from "vue"
 import { useRouter } from "vue-router"
 import { useAuthStore } from "../stores/auth"
 
 defineProps<{}>()
 const router = useRouter()
 const authStore = useAuthStore()
+const isLogin = ref<boolean | undefined>(false)
 
 const goToLogin: () => void = () => {
     router.push("/login")
 }
 const goToRegister: () => void = () => {
     router.push("/register")
-}
-const goToDashBoard: () => void = () => {
-    router.push("/dashboard")
 }
 const goToMainJob: () => void = () => {
     router.push("/mainjob")
@@ -25,12 +23,6 @@ const goToUser: () => void = () => {
 const goToAdmin: () => void = () => {
     router.push("/admin")
 }
-
-const isVisble = ref<boolean>(false)
-const toggleMenu = (): void => {
-    isVisble.value = !isVisble.value
-}
-const isLogin = ref<boolean | undefined>(false)
 
 const logout: () => Promise<void> = async () => {
     try {
@@ -144,45 +136,6 @@ isLogin.value = authStore.getIsLoggedIn()
             }
         }
     }
-}
-.list-option {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-.options {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    bottom: -100%;
-    z-index: 999;
-    border-radius: 16px;
-
-}
-.options span {
-    padding-left: 3px;
-}
-.options button {
-    background-color: #fff;
-    border: none;
-    border: 1px solid #f2f3f4;
-    cursor: pointer;
-    border-radius: 8px 8px;
-}
-.options button:hover {
-    background-color: #f2f3f4;
-}
-.menu-main {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    padding: 3px;
-    background-color: #fff;
-    cursor: pointer;
-}
-.menu-main span {
-    padding-left: 3px;
 }
 .nav-container__body__info img {
     width: 30px;

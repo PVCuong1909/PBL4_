@@ -17,7 +17,6 @@
 <script setup lang="ts">
 import type { IJob } from "../../../types/auth";
 import { useRouter } from "vue-router";
-import {ref} from 'vue'
 
 const props = defineProps<{
   job: IJob;

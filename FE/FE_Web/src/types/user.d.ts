@@ -34,7 +34,3 @@ export interface IUpdate {
     email?: string
     desired_career?: string
 }
-export interface IGetCareer{
-    desired_career?: string
-}
-

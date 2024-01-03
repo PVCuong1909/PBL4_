@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import { useAuthStore } from "@/stores/auth"
 import { useRouter } from "vue-router"
 import { ref} from "vue"
 import { ISignUp } from "@/types/user"
 import { registerApi } from "@/services/user.service"
 import { ElNotification } from "element-plus"
 
-const auth = useAuthStore()
 const router = useRouter()
 
 const user = ref<ISignUp>({
@@ -34,15 +32,15 @@ const signUp = async () => {
         isMatchPassword.value = false
         await registerApi(user.value)
         ElNotification({
-            title: "Success",
-            message: "Create user succesfully!",
+            title: "Thành công",
+            message: "Tạo tại khoản thành công!",
             type: "success",
         })
         router.push("/login")
     } catch (error) {
         ElNotification({
-            title: "Error", 
-            message: "Create user failed!",
+            title: "Thất bại", 
+            message: "Tạo tại khoản thất bại, vui lòng kiểm tra lại!",
             type: "error",
         })
         console.error(error)

@@ -1,6 +1,5 @@
 import axiosApiInstance from "../api"
-import { ILogin,ISignUp,IUpdate,IGetCareer } from "../types/user"
-import { IJob } from "../types/auth"
+import { ILogin,ISignUp,IUpdate } from "../types/user"
 import axios from "axios"
 axios.defaults.URL = import.meta.env.VITE_API_URL
 
@@ -30,8 +29,5 @@ export const getInfoAll = async () => {
     return await axiosApiInstance.get("/users/")
 }
 export const updateInfo = async (data: IUpdate) => {
-    return await axiosApiInstance.put(`/users/me`, data)
-}
-export const getCareer = async(data: IGetCareer) => {
     return await axiosApiInstance.put(`/users/me`, data)
 }

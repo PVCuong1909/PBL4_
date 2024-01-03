@@ -1,7 +1,5 @@
 const AuthServices = require('../services/auth.service');
 const TokenService = require('../services/token.service');
-const mailService  = require('../services/mailService');
-const UserController = require('./user.Controller');
 
 const login = async (req, res) => {
 	try {

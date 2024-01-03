@@ -40,15 +40,12 @@
   </template>
   <script setup lang="ts">
   import { ref, computed, onBeforeMount } from "vue";
-  import { useRouter } from "vue-router";
   import UserCard from "../../views/admin/UserCard/index.vue"
   import { ElNotification } from "element-plus";
   import { getInfoAll } from "@/services/user.service";
   import type { IUser } from "@/types/user";
-  
-  const router = useRouter();
+
   const tableColumns = ref(["Avatar", "Name", "Email", "CreateAt", "UpdateAt"]);
-  
   const listUser = ref<Array<IUser>>([]);
   const getListUser = async (): Promise<void> => {
     try {

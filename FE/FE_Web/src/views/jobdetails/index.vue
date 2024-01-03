@@ -71,8 +71,8 @@
                   </svg>
                 </div>
                 <div class="job-detail__info--section-content">
-                  <div class="job-detail__info--section-content-title">Hình thức làm việc</div>
-                  <div class="job-detail__info--section-content-value">{{ jobdetail?.Type}}</div>
+                  <div class="job-detail__info--section-content-title">Lĩnh vực</div>
+                  <div class="job-detail__info--section-content-value">{{ jobdetail?.Career}}</div>
                 </div>
               </div>
               <div class="job-detail__info--section">
@@ -96,7 +96,7 @@
                 <div class="job-detail__info--time">Hạn nộp: {{ jobdetail?.Deadline}}</div>
               </div>
               <div class="job-detail__info--button">
-                <button @click="GetCareer()">Gửi mail</button>
+                <button @click="GetData(jobdetail?.Career)">Yêu thích</button>
               </div>
             </div>
           </div>
@@ -135,6 +135,14 @@
                 </div>
               </div>
             </div>
+            <div class="job-detail__bottom--content">
+              <div class="job-detail__bottom--description">
+                <div class="job-detail__bottom--description-item">
+                  <h2>Hình thức làm việc</h2>
+                  <p v-html = "formatTextSkill(jobdetail?.Type)"></p>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="button-back">
             <button @click="backListJob">Trở về</button>
@@ -148,35 +156,29 @@
 </template>
 <script setup lang="ts">
 import { useRoute, useRouter } from "vue-router";
-import { ref, onBeforeMount, computed ,onMounted, onUnmounted,watch } from "vue";
-import { getJobID,getCareer } from "../../services/user.service";
+import { ref, onBeforeMount } from "vue";
+import { getJobID } from "../../services/user.service";
 import type { IJob } from "../../types/auth";
-import { IGetCareer, ILogin,IUpdate } from "@/types/user";
+import {  IUpdate } from "@/types/user";
+import { updateInfo} from "@/services/user.service";
 import { ElNotification } from "element-plus";
 const route = useRoute();
 const router = useRouter();
-const dataInfo = ref<ILogin>();
 onBeforeMount(() => {
 getJobDetail();
 });
 const backListJob = () => {
 router.push("/mainjob")
 }
-const showSidebar = ref(false);
 const jobdetail = ref<IJob | null>(null);
-  const careerGet = ref<IGetCareer>({
-  desired_career: jobdetail.value?.Career,
-});
-
-const updateI = ref<IUpdate>({
-  desired_career: jobdetail.value?.Career,
-});
-const GetCareer = async () => {
+const GetData = async (data : any) => {
   try {
-    await getCareer(updateI.value);
+    const updateI = ref<IUpdate>({});
+    updateI.value.desired_career = data;
+    await updateInfo(updateI.value);
     ElNotification({
-      title: "Success",
-      message: "Update succesfully!",
+      title: "Thành công",
+      message: "Bạn đã thêm thành công vào danh sách yêu thích",
       type: "success",
     });
   } catch (error) {
@@ -185,52 +187,29 @@ const GetCareer = async () => {
       message: "Update failed!",
       type: "error",
     });
-    console.log(jobdetail.value?.Career);
     console.error(error);
   }
 };
 const getJobDetail = async (): Promise<void> => {
-try {
-  const id = route.params.id;
-  const res = await getJobID(id.toString());
-  jobdetail.value = res.data;
-} catch (error) {
+  try {
+    const id = route.params.id;
+    const res = await getJobID(id.toString());
+    jobdetail.value = res.data;
+    } 
+  catch (error) {
   console.log("error", error);
-}
-};
-const formatText = (data: any) => {
-if (typeof data !== "string" || !data) {
-  return "";
-} else {
-  const sentences = data.split(". ");
-  const convertedText = sentences.join(".<br>");
-  return convertedText;
-}
+  }
 };
 
 const formatTextSkill = (data: any): string => {
-if (typeof data !== "string" || !data) {
-  return "";
-} else {
-  const sentences = data.split(".");
-  // const updatedSentences = sentences.map((sentence, index) => {
-  //   if (index === 1) { 
-  //     return sentence.replace(".", " - ");
-  //   }
-  //   return sentence;
-  // });
-  // const convertedText = updatedSentences.join("<br>-");
-  const convertedText = sentences.join("<br>");
-  return convertedText;
-}
-};
-
-const scrollToSection = (sectionId: string): void => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+  if (typeof data !== "string" || !data) {
+    return "";
+  }else {
+    const sentences = data.split(".");
+    const convertedText = sentences.join("<br>");
+    return convertedText;
   }
+};
 
 </script>
 <style scoped>
@@ -240,7 +219,6 @@ const scrollToSection = (sectionId: string): void => {
     margin-left: -5px;
     margin-right: -5px;
 }
-
 .grid__column-8{
     padding-left: 65px;
     padding-right: 10px;
@@ -250,13 +228,11 @@ const scrollToSection = (sectionId: string): void => {
     flex-direction: column;
     gap: 40px;
 }
-
 .grid__column-10{
     padding-left: 5px;
     padding-right: 5px;
     width: 33.333%;
 }
-
 .container-banner{
   max-width: 100%;
   height: auto;

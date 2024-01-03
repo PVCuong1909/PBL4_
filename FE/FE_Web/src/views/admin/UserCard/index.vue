@@ -21,9 +21,7 @@
     </div>
 </template>
 <script setup lang="ts">
-import { ref, computed } from "vue"
 import type { IUser} from "@/types/user"
-
 const props = defineProps<{
     user: IUser
 }>()
@@ -35,34 +33,6 @@ const props = defineProps<{
     grid-template-columns: auto auto auto auto auto;
     align-items: center;
     background: #ffffff;
-}
-.button-action {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-.button-action {
-    padding-top: 15px;
-}
-.button-action button {
-    padding: 5px 20px 5px 5px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-}
-.button-action {
-    position: relative;
-}
-.button-action button:hover {
-    background-color: aquamarine;
-}
-.icon-action-up {
-    position: absolute;
-    right: 5.5%;
-}
-.icon-action-down {
-    position: absolute;
-    right: 5.5%;
 }
 .table-list-user {
     margin-left: 20px;

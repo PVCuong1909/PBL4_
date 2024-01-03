@@ -1,17 +1,12 @@
-
 <script lang="ts" setup>
-import { useAuthStore } from "../../stores/auth";
-import NavBar from "../../layouts/NavBar/index.vue";
 import { ref, onBeforeMount, watch } from "vue";
 import { updateInfo, getInfo } from "@/services/user.service";
 import { IUpdate, ILogin } from "@/types/user";
 import { ElNotification } from "element-plus";
 
-
 onBeforeMount(async () => {
   await handleGetInfo();
 });
-const auth = useAuthStore();
 const isArrowUp = ref(false);
 const dataInfo = ref<ILogin>();
 
@@ -40,10 +35,6 @@ const updateI = ref<IUpdate>({
   avatar: dataInfo.value?.avatar,
   email: dataInfo.value?.email,
 });
-const handleClickInfor = () => {
-  isArrowUp.value = !isArrowUp.value;
-};
-
 const handleUpdate = async () => {
   try {
     await updateInfo(updateI.value);
@@ -61,6 +52,7 @@ const handleUpdate = async () => {
     console.error(error);
   }
 };
+
 </script>
 <template>
     <div class="grid">

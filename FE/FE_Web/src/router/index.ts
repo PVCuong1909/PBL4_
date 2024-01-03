@@ -23,10 +23,6 @@ const router = createRouter({
             component: () => import("../views/register/index.vue"),
         },
         {
-            path: "/dashboard",
-            component: () => import("../views/dashboard/index.vue"),
-        },
-        {
             path: "/user",
             component: () => import("../views/user/index.vue"),
 

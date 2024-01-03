@@ -4,20 +4,6 @@
       <div class="input-search">
         <input type="text" v-model="keySearch" placeholder="Nhập vị trị, công ty, từ khóa,..." />
       </div>
-      <div class="select-province">
-        <select v-model="selectedProvince" >
-          <option
-            v-for="province in provinces"
-            :key="province.code"
-            :value="province.name"
-          >
-            {{ province.name }}
-          </option>
-        </select>
-        <div class="container-button">
-          <button>Tìm kiếm</button>
-        </div>
-      </div>
     </div>
     <div class="grid__row">
       <div class="grid__column-8">
@@ -45,26 +31,14 @@
 </template>
 <script setup lang="ts">
 import { ref, onBeforeMount, computed } from "vue";
-import axios from "axios";
-import type { IJob, IPronvince } from "../../../types/auth";
+import type { IJob } from "../../../types/auth";
 import { getJobAll } from "../../../services/user.service";
 import JobList from "../joblist/index.vue";
 
 onBeforeMount(() => {
-  getProvinces();
   getListJob();
 });
 
-const provinces = ref<Array<IPronvince>>([]);
-const selectedProvince = ref("");
-const getProvinces = async () => {
-  try {
-    const response = await axios.get("https://provinces.open-api.vn/api/");
-    provinces.value = response.data;
-  } catch (error) {
-    console.error("Error fetching provinces:", error);
-  }
-};
 const listJob = ref<Array<IJob>>([]);
 const getListJob = async (): Promise<void> => {
   try {
@@ -98,7 +72,6 @@ const searchedAndFilteredJobs = computed(() => {
     );
   });
 });
-
 const handlePageChange = (page: number) => {
   currentPage.value = page;
 };
@@ -112,8 +85,7 @@ const handlePageChange = (page: number) => {
 }
 .container-search {
   display: flex;
-  gap: 15%;
-  align-items: center;
+  justify-content: center;
   padding: 40px 30px;
 }
 
