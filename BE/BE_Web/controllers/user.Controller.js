@@ -12,7 +12,8 @@ const getUsers = async () => {
     "users.avatar",
     "users.role",
     "users.created_at",
-    "users.updated_at"
+    "users.updated_at",
+    "users.desired_career"
   );
 };
 const getUserByEmail = (email) => {

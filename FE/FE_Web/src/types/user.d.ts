@@ -32,6 +32,7 @@ export interface IUpdate {
     avatar?: string
     age?: number
     email?: string
+    desired_career?: string
 }
 export interface IGetCareer{
     desired_career?: string

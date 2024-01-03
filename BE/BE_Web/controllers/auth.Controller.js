@@ -16,7 +16,7 @@ const login = async (req, res) => {
 			});
 			return;
 		}
-		console.log("userconteoller",user)
+		console.log("usercontroller",user)
 		if (user){
 			const access_token = await TokenService.signToken(user);
 			const refresh_token = await TokenService.refreshToken(user);

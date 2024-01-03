@@ -65,7 +65,6 @@ const handleUpdate = async () => {
 <template>
     <div class="grid">
         <div class="grid__row">
-            
                     <div class="profile__container-title--img">
                         <div class="profile__container-title">
                             <h1>Tài khoản</h1>

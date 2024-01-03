@@ -15,6 +15,7 @@ exports.up = function(knex) {
 		table.string('age');
 		table.timestamp('created_at').defaultTo(knex.fn.now());
 		table.timestamp('updated_at').defaultTo(knex.fn.now());
+		table.string('desired_career');
 	})
 	.createTable('job_detail', function (table) {
 		table.increments('id').primary();

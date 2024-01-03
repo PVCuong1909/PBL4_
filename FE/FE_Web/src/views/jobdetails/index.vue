@@ -148,10 +148,10 @@
 </template>
 <script setup lang="ts">
 import { useRoute, useRouter } from "vue-router";
-import { ref, onBeforeMount, computed ,onMounted, onUnmounted } from "vue";
+import { ref, onBeforeMount, computed ,onMounted, onUnmounted,watch } from "vue";
 import { getJobID,getCareer } from "../../services/user.service";
 import type { IJob } from "../../types/auth";
-import { IGetCareer, ILogin } from "@/types/user";
+import { IGetCareer, ILogin,IUpdate } from "@/types/user";
 import { ElNotification } from "element-plus";
 const route = useRoute();
 const router = useRouter();
@@ -167,9 +167,13 @@ const jobdetail = ref<IJob | null>(null);
   const careerGet = ref<IGetCareer>({
   desired_career: jobdetail.value?.Career,
 });
+
+const updateI = ref<IUpdate>({
+  desired_career: jobdetail.value?.Career,
+});
 const GetCareer = async () => {
   try {
-    await getCareer(careerGet.value);
+    await getCareer(updateI.value);
     ElNotification({
       title: "Success",
       message: "Update succesfully!",
@@ -181,6 +185,7 @@ const GetCareer = async () => {
       message: "Update failed!",
       type: "error",
     });
+    console.log(jobdetail.value?.Career);
     console.error(error);
   }
 };
